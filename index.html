@@ -2950,3 +2950,143 @@ const processSection = document.querySelector('.process');
 
 if (processSection)
   processObserver.observe(processSection);
+/* ---- FAQ ACCORDION ---- */
+function toggleFaq(questionEl) {
+  const item = questionEl.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ---- TESTIMONIALS SWIPER ---- */
+new Swiper('.testimonials-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 24,
+  autoplay: { delay: 4000, disableOnInteraction: false },
+  loop: true,
+  pagination: { el: '.swiper-pagination', clickable: true },
+  breakpoints: {
+    640: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 }
+  }
+});
+
+/* ---- LIGHTBOX ---- */
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+/* ---- CONTACT FORM ---- */
+function submitForm() {
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const service = document.getElementById('service').value;
+
+  if (!fname || !email || !service) {
+    alert('Please fill in your name, email and select a service.');
+    return;
+  }
+
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+}
+
+/* ---- GSAP SCROLL ANIMATIONS ---- */
+gsap.utils.toArray('.service-card').forEach((card, i) => {
+  gsap.fromTo(card,
+    { y: 60, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      },
+      delay: (i % 3) * 0.1
+    }
+  );
+});
+
+gsap.utils.toArray('.gallery-item').forEach((item, i) => {
+  gsap.fromTo(item,
+    { y: 50, opacity: 0, scale: 0.95 },
+    {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.7,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: item,
+        start: 'top 88%',
+        toggleActions: 'play none none none'
+      },
+      delay: (i % 3) * 0.12
+    }
+  );
+});
+
+// Gallery tilt on mousemove
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('mousemove', e => {
+    const rect = item.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    gsap.to(item, {
+      rotateY: x * 8,
+      rotateX: -y * 8,
+      transformPerspective: 800,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
+  });
+
+  item.addEventListener('mouseleave', () => {
+    gsap.to(item, {
+      rotateY: 0,
+      rotateX: 0,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+  });
+});
+
+// Service card tilt
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    gsap.to(card, {
+      rotateY: x * 5,
+      rotateX: -y * 5,
+      transformPerspective: 1000,
+      duration: 0.4
+    });
+  });
+
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, {
+      rotateY: 0,
+      rotateX: 0,
+      duration: 0.5
+    });
+  });
+});
