@@ -3090,3 +3090,184 @@ document.querySelectorAll('.service-card').forEach(card => {
     });
   });
 });
+// Magnetic buttons
+document.querySelectorAll('.btn-primary, .btn-outline, .nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const mx = (e.clientX - rect.left - rect.width / 2) * 0.2;
+    const my = (e.clientY - rect.top - rect.height / 2) * 0.2;
+    gsap.to(btn, { x: mx, y: my, duration: 0.3, ease: 'power2.out' });
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, {
+      x: 0,
+      y: 0,
+      duration: 0.5,
+      ease: 'elastic.out(1, 0.5)'
+    });
+  });
+});
+
+/* ---- FOOTER SCROLL ANIMATION ---- */
+gsap.from('footer .footer-grid > *', {
+  y: 40,
+  opacity: 0,
+  stagger: 0.15,
+  duration: 0.8,
+  scrollTrigger: {
+    trigger: 'footer',
+    start: 'top 85%'
+  }
+});
+
+/* ---- SECTION TITLE ANIMATIONS ---- */
+gsap.utils.toArray('.section-title').forEach(title => {
+  gsap.from(title, {
+    y: 40,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: title,
+      start: 'top 85%',
+      toggleActions: 'play none none none'
+    }
+  });
+});
+
+/* ---- ABOUT IMAGE PARALLAX ---- */
+gsap.to('.about-img-main img', {
+  yPercent: -15,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.about',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true
+  }
+});
+
+/* ---- PROCESS STEPS STAGGER ---- */
+gsap.from('.process-step', {
+  y: 50,
+  opacity: 0,
+  stagger: 0.15,
+  duration: 0.8,
+  scrollTrigger: {
+    trigger: '.process-steps',
+    start: 'top 80%'
+  }
+});
+
+/* ---- SMOOTH SCROLL ---- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    const target = document.querySelector(id);
+
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+/* ---- ABOUT FEATURES STAGGER ---- */
+gsap.from('.about-feature', {
+  x: -30,
+  opacity: 0,
+  stagger: 0.1,
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: '.about-features',
+    start: 'top 85%'
+  }
+});
+
+/* ---- WHY FEATURES SLIDE ---- */
+gsap.from('.why-feature', {
+  x: -40,
+  opacity: 0,
+  stagger: 0.15,
+  duration: 0.8,
+  ease: 'power3.out',
+  scrollTrigger: {
+    trigger: '.why-features',
+    start: 'top 80%'
+  }
+});
+
+/* ---- STAT CARDS POP ---- */
+gsap.from('.why-stat-card', {
+  scale: 0.85,
+  opacity: 0,
+  stagger: 0.12,
+  duration: 0.7,
+  ease: 'back.out(1.4)',
+  scrollTrigger: {
+    trigger: '.why-stats',
+    start: 'top 82%'
+  }
+});
+
+/* ---- CONTACT CHANNELS ---- */
+gsap.from('.contact-channel', {
+  x: -30,
+  opacity: 0,
+  stagger: 0.1,
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: '.contact-channels',
+    start: 'top 85%'
+  }
+});
+
+/* ---- FAQ ITEMS ---- */
+gsap.from('.faq-item', {
+  y: 20,
+  opacity: 0,
+  stagger: 0.08,
+  duration: 0.5,
+  scrollTrigger: {
+    trigger: '.faq-list',
+    start: 'top 85%'
+  }
+});
+
+/* ---- FOOTER SOCIAL HOVER ---- */
+document.querySelectorAll('.footer-social').forEach(s => {
+  s.addEventListener('mouseenter', () =>
+    gsap.to(s, {
+      scale: 1.15,
+      duration: 0.2,
+      ease: 'back.out(2)'
+    })
+  );
+
+  s.addEventListener('mouseleave', () =>
+    gsap.to(s, {
+      scale: 1,
+      duration: 0.3,
+      ease: 'elastic.out(1, 0.5)'
+    })
+  );
+});
+
+/* ---- HERO IMAGE KEN BURNS ---- */
+gsap.to('.hero-img-frame img', {
+  scale: 1.06,
+  duration: 8,
+  ease: 'none',
+  repeat: -1,
+  yoyo: true
+});
+
+console.log('✦ Stitchery — Sewing Excellence | Luxury website loaded.');
+</script>
+
+</body>
+</html>
